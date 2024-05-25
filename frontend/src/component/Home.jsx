@@ -1,4 +1,3 @@
-import { useEffect } from "react"
 import Footer from "./Footer"
 import Sidebar from "./Sidebar"
 import Tailor from "./Tailor"
@@ -16,8 +15,7 @@ const Home = () => {
     useTopRatedMovie();
     useUpcomingMovie();
 
-    useEffect(() => {
-    }, [])
+    
     return (
         <>
             <div className="">
@@ -34,3 +32,4 @@ const Home = () => {
 }
 
 export default Home
+

@@ -11,5 +11,5 @@ export const Now_Playing_Moving = 'https://api.themoviedb.org/3/movie/now_playin
 export const popular_Moving = 'https://api.themoviedb.org/3/movie/popular';
 export const top_rated_Moving = 'https://api.themoviedb.org/3/movie/top_rated';
 export const upcoming_Moving = 'https://api.themoviedb.org/3/movie/upcoming';
-
+export const tailor_Url ='https://api.themoviedb.org/3/movie/${movieId}/video'
 export const Poster_Url = 'https://image.tmdb.org/t/p/w500';

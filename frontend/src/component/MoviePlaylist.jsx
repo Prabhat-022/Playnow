@@ -10,7 +10,7 @@ const MoviePlaylist = (props) => {
         <>
             <div className="text-xl font-bold  ">
                 <p>{title}</p>
-                <div className="flex gap-5 mt-2 flex-wrap">
+                <div className="flex gap-5 mt-2 overflow-x-auto flex-wrap">
 
                     {
                         movies && movies.map((movie) => {
