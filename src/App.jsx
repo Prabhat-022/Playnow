@@ -1,11 +1,13 @@
 import Header from "./component/Header"
-import Home from "./component/Home"
+// import Home from "./component/Home"
+import Main from "./component/Main"
 
 const App = () => {
   return (
     <>
       <Header />
-      <Home />
+      <Main/>
+      {/* <Home /> */}
     </>
   )
 }
