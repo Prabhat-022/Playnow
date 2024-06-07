@@ -1,6 +1,5 @@
 import { useEffect } from "react"
 import Footer from "./Footer"
-import Header from "./Header"
 import Sidebar from "./Sidebar"
 import Tailor from "./Tailor"
 import { useNowPlayingMovie } from "../hooks/useNowPlayingMovie"
@@ -8,6 +7,7 @@ import MovieContainer from "./MovieContainer"
 import { usePopularMovie } from "../hooks/usePopularMovie"
 import { useTopRatedMovie } from "../hooks/useTopRatedMovie"
 import { useUpcomingMovie } from "../hooks/useUpcomingMovie"
+import Header from "./Header"
 
 
 const Home = () => {
@@ -20,11 +20,15 @@ const Home = () => {
     }, [])
     return (
         <>
-            <Sidebar />
-            <Header />
-            <Tailor />
-            <MovieContainer/>
-            <Footer />
+            <div className="">
+                <div className="absolute ">
+                    <Header />
+                </div>
+                <Sidebar />
+                <Tailor />
+                <MovieContainer />
+                <Footer />
+            </div>
         </>
     )
 }

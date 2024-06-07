@@ -4,22 +4,24 @@ import MovieCard from "./MovieCard"
 
 const MoviePlaylist = (props) => {
 
-    const {title, movies} = props;
+    const { title, movies } = props;
 
     return (
         <>
             <div className="text-xl font-bold  ">
                 <p>{title}</p>
-                {/* <MovieCard /> */}
-                <div className="flex gap-4  mt-2 ">
+                <div className="flex gap-5 mt-2 flex-wrap">
+
                     {
-                      movies &&  movies.map((movie) => {
+                        movies && movies.map((movie) => {
                             return (
                                 <MovieCard key={movie.id} poster={movie.poster_path} />
                             )
                         })
                     }
+
                 </div>
+
             </div>
         </>
     )

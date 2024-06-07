@@ -23,26 +23,25 @@ import { BrowserRouter as Router, Route, Routes }
 import SingUp from './pages/SingUp'
 import Singin from './pages/Singin'
 import Landing from './pages/Landing'
-import { useEffect, useState } from "react";
-import axios from "axios";
+// import { useEffect, useState } from "react";
+// import axios from "axios";
 
 const App = () => {
 
-  const [message, setMessage] = useState("");
+  // const [message, setMessage] = useState("");
 
-  useEffect(() => {
-    try {
-      const res = axios.get('http://localhost:3000')
-      console.log(res.data)
-      setMessage(res)
-    } catch (error) {
-      console.log(error)
-    }
-  }, []);
+  // useEffect(() => {
+  //   try {
+  //     const res = axios.get('http://localhost:3000')
+  //     console.log(res.data)
+  //     setMessage(res)
+  //   } catch (error) {
+  //     console.log(error)
+  //   }
+  // }, []);
 
   return (
     <>
-      <h1>{message}</h1>
       <Router>
 
         <Routes>

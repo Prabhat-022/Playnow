@@ -17,7 +17,7 @@ const Header = () => {
     }
 
     return (
-        <div className="">
+        <div className="w-[100vw] bg-gradient-to-b from-black">
             <div className="flex items-center justify-between">
                 <div className="">
                     <img src={logo} alt="" className='w-20 h-25 mx-5' />
@@ -36,8 +36,9 @@ const Header = () => {
                         {/* Button to toggle input box */}
 
                         {showInput && (
-                            <input type="text" className="border" />
+                            <input type="text" className="border bg-transparent px-2" />
                         )}
+                        
                         <UilSearch color="white" className="ml-2" onClick={searchHandle} />
                     </div>
 

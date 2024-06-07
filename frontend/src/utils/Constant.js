@@ -12,7 +12,4 @@ export const popular_Moving = 'https://api.themoviedb.org/3/movie/popular';
 export const top_rated_Moving = 'https://api.themoviedb.org/3/movie/top_rated';
 export const upcoming_Moving = 'https://api.themoviedb.org/3/movie/upcoming';
 
-
-
-
 export const Poster_Url = 'https://image.tmdb.org/t/p/w500';

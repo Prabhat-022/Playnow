@@ -5,12 +5,12 @@ import { UilPlay, UilInfoCircle } from '@iconscout/react-unicons'
 const Tailor = () => {
     return (
         <>
-            <div className="h-[60%] w-[100%]">
-                <div className="w-full ">
+            <div className="">
+                <div className="w-full h-[50%]">
                     <div className="">
                         <img src={homeimg} alt="" className='h-[70vh] w-[100%] ' />
                     </div>
-                    <div className="absolute bottom-32">
+                    <div className="absolute bottom-44 ">
                         <h1 className='text-4xl font-bold mb-2'>Kingdom of the Planet of the Apes
                         </h1>
                         <p className='text-xl'>  Several generations in the future following Caesar's reign, apes are now the dominant species and live harmoniously while humans have been reduced t...</p>

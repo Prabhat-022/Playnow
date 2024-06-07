@@ -3,6 +3,7 @@ import MoviePlaylist from "./MoviePlaylist";
 
 const MovieContainer = () => {
     const movie = useSelector(state => state.movie)
+    console.log(movie)
 
     return (
         <>
