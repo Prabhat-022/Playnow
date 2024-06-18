@@ -1,64 +1,25 @@
-import { useState } from 'react';
-import logo from './../assets/netflix_logo.png';
-import { UilSearch, UilBell, UilUserCircle, UilAlignJustify } from '@iconscout/react-unicons';
-import './../App.css';
-import Sidebar from './Sidebar';
+import React from 'react';
+import {IoIosArrowDropdown} from 'react-icons/io'
 
 const Header = () => {
-
-    const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-    const [showInput, setShowInput] = useState(false);
-
-    const toggleSidebar = () => {
-        setIsSidebarOpen(!isSidebarOpen);
-    };
-    const searchHandle = () => {
-        setShowInput(!showInput);
-    }
-
     return (
-        <div className="w-[100vw] bg-gradient-to-b from-black">
-            <div className="flex items-center justify-between">
-                <div className="">
-                    <img src={logo} alt="" className='w-20 h-25 mx-5' />
-                </div>
-                <div className="">
-                    <ul className='flex  cursor-pointer px-1 text-xl font-bold mobile:hidden '>
-                        <li className='ml-2 mr-2'>Home</li>
-                        <li className='ml-2 mr-2'>TV Show</li>
-                        <li className='ml-2 mr-2'>Movie</li>
-                        <li className='ml-2 mr-2'>News & Popular</li>
-                        <li className='ml-2 mr-2'>My List</li>
-                    </ul>
-                </div>
-                <div className="flex  cursor-pointer mx-5 items-center">
-                    <div className='flex'>
-                        {/* Button to toggle input box */}
+        <div className="absolute flex w-[100%] items-center justify-between px-6 bg-gradient-to-b from-black">
+            <img className='w-48 h-10' src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Netflix_2015_logo.svg/1198px-Netflix_2015_logo.svg.png" alt="" />
 
-                        {showInput && (
-                            <input type="text" className="border bg-transparent px-2" />
-                        )}
-                        
-                        <UilSearch color="white" className="ml-2" onClick={searchHandle} />
-                    </div>
+            <div className="flex items-center ">
+                <IoIosArrowDropdown size="24px" color='white'/>
 
-                    {/* <UilSearch color="white" className="ml-2" onClick={searchhandle()} /> */}
-                    <UilBell color="white" className="ml-2" />
-                    <UilUserCircle color="white" className="ml-2" />
-                    <div className="App">
-                        <UilAlignJustify color="white" className=" openbtn ml-2 hidden mobile:block" onClick={toggleSidebar} />
-                        <Sidebar isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
-                    </div>
+                <h1 className='text-lg font-medium text-white'>Prabhat kumar </h1>
+                <div className="ml-4">
+
+                    <button className='bg-red-800 text-white px-4 py-2'>Logout</button>
+
+                    <button className='bg-red-800 text-white px-4 py-2 ml-2'>Search Movie</button>
 
                 </div>
-
             </div>
         </div>
-
     )
 }
 
 export default Header
-
-
-
