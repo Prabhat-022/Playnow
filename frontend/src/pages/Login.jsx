@@ -39,7 +39,7 @@ const Login = () => {
       try {
         setIsloading(true)
 
-        const res = await axios.post(`${API_END_POINT}/login`, user, {
+        const res = await axios.post(`${API_END_POINT}/api/v1/use/login`, user, {
           headers: {
             'Content-Type': 'application/json'
           },
