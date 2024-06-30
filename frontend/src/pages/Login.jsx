@@ -32,14 +32,14 @@ const Login = () => {
   const getinputData = async (e) => {
     e.preventDefault();
     console.log("islogin", !islogin)
-    
+
     if (!islogin) {
       //login
       const user = { email, password }
       try {
         setIsloading(true)
 
-        const res = await axios.post(`${API_END_POINT}/api/v1/use/login`, user, {
+        const res = await axios.post(`${API_END_POINT}/login`, user, {
           headers: {
             'Content-Type': 'application/json'
           },
@@ -48,9 +48,11 @@ const Login = () => {
         console.log('config.data', res.config.data)
         if (res.data.success) {
           toast.success(res.data.message)
-        }
+          setIsloading(false);
 
-        setIsloading(false);
+        }
+        dispatch(setUser(res.config.data))
+
         navigate("/browse");
 
 
@@ -77,11 +79,12 @@ const Login = () => {
 
         if (res.data.success) {
           toast.success(res.data.message)
+          setIsloading(false)
+
         }
-        dispatch(setUser(res.config.data))
+        // dispatch(setUser(res.config.data))
 
 
-        setIsloading(false)
 
       } catch (error) {
         setIsloading(false)
