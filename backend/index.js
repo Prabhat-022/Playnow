@@ -23,20 +23,20 @@ app.use(express.urlencoded({ extended: true }))
 app.use(express.json());
 app.use(cookieParser())
 
-const corsOptions = {
-    origin:'https://playnow-by-pk.vercel.app',
-    //for save the data on browser
-    Credentials:true
-} 
-app.use(cors(corsOptions));
-// app.use(cors())
+// const corsOptions = {
+//     origin:'https://playnow-by-pk.vercel.app',
+//     //for save the data on browser
+//     Credentials:true
+// } 
+// app.use(cors(corsOptions));
+app.use(cors())
 
 //creating the api
 app.use("/api/v1/user", userRoute);
 // http://localhost:8000/api/v1/user/register
 
 app.get('/', (req, res) => {
-    res.send("Hii, how are you, i'm coming form backend");
+    res.send("Hii, how are you, i'm coming form backend, now live");
 })
 
 
