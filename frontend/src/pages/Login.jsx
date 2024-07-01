@@ -51,7 +51,7 @@ const Login = () => {
           setIsloading(false);
 
         }
-        dispatch(setUser(res.config.data))
+        dispatch(setUser(res.data.config.data))
 
         navigate("/browse");
 

@@ -2,9 +2,9 @@ import express from 'express';
 import dontenv from 'dotenv';
 import databaseConnection from './utils/database.js';
 import cors from 'cors'
+
 // internalBinding('errors').triggerUncaughtException() than add file extension eg. .js, .tsx
-import path from 'path';
-const __dirname = path.resolve();
+
 import cookieParser from 'cookie-parser';
 const app = express();
 // const port = process.env.PORT || 3000;
@@ -23,27 +23,25 @@ app.use(express.urlencoded({ extended: true }))
 app.use(express.json());
 app.use(cookieParser())
 
-// const corsOptions = {
-//     origin:'https://playnow-by-pk.vercel.app',
-//     //for save the data on browser
-//     Credentials:true
-// } 
-// app.use(cors(corsOptions));
-app.use(cors())
+const corsOptions = {
+    // origin:'http://localhost:3000',
+    origin:'https://playnow-by-pk.vercel.app/',
+    //for save the data on browser
+    Credentials:true
+} 
+app.use(cors(corsOptions));
+// app.use(cors())
 
 //creating the api
+
 app.use("/api/v1/user", userRoute);
+
 // http://localhost:8000/api/v1/user/register
 
 app.get('/', (req, res) => {
     res.send("Hii, how are you, i'm coming form backend, now live");
 })
 
-
-// app.get('/', (req, res) => {
-//     app.use(express.static(path.resolve(__dirname, "frontend", "build")))
-//     res.sendFile(path.resolve(__dirname, "frontend", "build", "index.html"));
-// });
 
 
 app.listen(process.env.PORT, () => {
