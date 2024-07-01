@@ -11,7 +11,7 @@ const API_END_POINT = process.env.REACT_APP_API_ENDPOINT || 'http://localhost:80
 
 const Header = () => {
     const user = useSelector((store) => store.app.user)
-    
+
     // const user = useSelector((store) => store.user.user)
     const toggle = useSelector((store) => store.movie.toggle)
 
@@ -24,7 +24,7 @@ const Header = () => {
 
     const logoutHandler = async () => {
         try {
-            const res = await axios.get(`${API_END_POINT}/logout`);
+            const res = await axios.get(`${API_END_POINT}/api/v1/user/logout`);
             console.log(res)
 
             if (res.data.success) {

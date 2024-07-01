@@ -8,7 +8,7 @@ import { useDispatch } from 'react-redux';
 import { setUser } from '../redux/userSlice.js';
 import Footer from '../component/footer/Footer.jsx';
 import Faq from '../component/Frequently_ask_question/Faq.jsx';
-const API_END_POINT = process.env.REACT_APP_API_ENDPOINT || 'http://localhost:8000/api/v1/user';
+const API_END_POINT = process.env.REACT_APP_API_ENDPOINT || 'http://localhost:8000';
 
 const Login = () => {
   const [islogin, setIslogin] = useState(false);
@@ -42,7 +42,7 @@ const Login = () => {
       try {
         setIsloading(true)
 
-        const res = await axios.post(`${API_END_POINT}/login`, user, {
+        const res = await axios.post(`${API_END_POINT}/api/v1/user/login`, user, {
           headers: {
             'Content-Type': 'application/json'
           },
@@ -73,7 +73,7 @@ const Login = () => {
       const user = { fullName, email, password }
       try {
         setIsloading(true)
-        const res = await axios.post(`${API_END_POINT}/register`, user, {
+        const res = await axios.post(`${API_END_POINT}/api/v1/user/register`, user, {
           headers: {
             'Content-Type': 'application/json'
           },
