@@ -1,13 +1,12 @@
 import express from 'express';
 import dontenv from 'dotenv';
 import databaseConnection from './utils/database.js';
-import cors from 'cors'
+import cookieParser from 'cookie-parser';
 
+import cors from 'cors'
 // internalBinding('errors').triggerUncaughtException() than add file extension eg. .js, .tsx
 
-import cookieParser from 'cookie-parser';
 const app = express();
-// const port = process.env.PORT || 3000;
 
 import userRoute from './routes/userRoutes.js'
 
@@ -22,26 +21,22 @@ databaseConnection();
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json());
 app.use(cookieParser())
-
+ 
 const corsOptions = {
-    // origin:'http://localhost:3000',
-    origin:'https://playnow-by-pk.vercel.app/',
+    origin: ['http://localhost:3000', 'https://your-vercel-app.vercel.app'],
     //for save the data on browser
-    Credentials:true
-} 
+    credentials: true
+};
 app.use(cors(corsOptions));
-// app.use(cors())
+
 
 //creating the api
-
 app.use("/api/v1/user", userRoute);
-
 // http://localhost:8000/api/v1/user/register
 
 app.get('/', (req, res) => {
     res.send("Hii, how are you, i'm coming form backend, now live");
 })
-
 
 
 app.listen(process.env.PORT, () => {

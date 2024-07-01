@@ -1,17 +1,17 @@
 import React from 'react';
 import { IoIosArrowDropdown } from 'react-icons/io'
 import { useDispatch, useSelector } from 'react-redux';
-import { API_END_POINT } from '../utils/constant';
+// import { API_END_POINT } from '../utils/constant';
 import axios from 'axios';
 import { setUser } from '../redux/userSlice';
 import { useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import { gettoggle } from '../redux/moviesSlice';
+const API_END_POINT = process.env.REACT_APP_API_ENDPOINT || 'http://localhost:8000';
 
 const Header = () => {
     const user = useSelector((store) => store.app.user)
-    console.log("header", user)
-    console.log("header", user.fullName)
+    
     // const user = useSelector((store) => store.user.user)
     const toggle = useSelector((store) => store.movie.toggle)
 

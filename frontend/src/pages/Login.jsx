@@ -1,13 +1,14 @@
 import React, { useState } from 'react'
 import Header from '../component/Header'
 import axios from 'axios'
-import { API_END_POINT } from '../utils/constant';
+// import { API_END_POINT } from '../utils/constant';
 import { toast } from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { setUser } from '../redux/userSlice.js';
 import Footer from '../component/footer/Footer.jsx';
 import Faq from '../component/Frequently_ask_question/Faq.jsx';
+const API_END_POINT = process.env.REACT_APP_API_ENDPOINT || 'http://localhost:8000/api/v1/user';
 
 const Login = () => {
   const [islogin, setIslogin] = useState(false);
@@ -15,8 +16,10 @@ const Login = () => {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("");
   const [isloading, setIsloading] = useState(false)
+
   const navigate = useNavigate()
   const dispatch = useDispatch();
+
   const loginHandler = (e) => {
     // if (fullname === '' && email === '' && password === '') {
     //   alert("please enter the details");
@@ -45,16 +48,17 @@ const Login = () => {
           },
           withCredentials: true
         });
+
         console.log('config.data', res.config.data)
+
         if (res.data.success) {
           toast.success(res.data.message)
           setIsloading(false);
 
         }
-        dispatch(setUser(res.data.config.data))
 
+        dispatch(setUser(res.config.data))
         navigate("/browse");
-
 
       } catch (error) {
 
