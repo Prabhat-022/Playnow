@@ -7,8 +7,10 @@ function App() {
     <div className="App no-scrollbar">
       <Body/>
       <Toaster />
+      
     </div>
   );
 }
 
 export default App;
+

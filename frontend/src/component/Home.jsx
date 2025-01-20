@@ -4,7 +4,7 @@ import MovieContainer from './MovieContainer'
 
 const Home = () => {
   return (
-    <div>
+    <div className=''>
        <MainContainer />
        <MovieContainer />
     </div>

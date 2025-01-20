@@ -7,10 +7,11 @@ const movieSlice = createSlice({
         popularMoving: null,
         topRatedMovie: null,
         upcomingMoving: null,
-        tailorMovie: null,
+        tailorMovie: 938614,
         toggle: false,
         id:'',
-        movieName:"jaan"
+        movieName:"jaan",
+        login:false
     },
     reducers: {
         //actions
@@ -38,6 +39,10 @@ const movieSlice = createSlice({
         getMovieName: (state, action) => {
             state.movieName = action.payload;
         },
+        getLogin:(state, action)=>{
+            state.login = action.payload
+        }
+     
 
     }
 });
@@ -50,6 +55,7 @@ export const {
     getTailorMovies,
     gettoggle,
     getid,
-    getMovieName
+    getMovieName,
+    getLogin
 } = movieSlice.actions;
 export default movieSlice.reducer;

@@ -1,5 +1,4 @@
-// export const API_END_POINT = "http://localhost:8000/api/v1/user"
-// export const API_END_POINT = "https://playnow-backend.vercel.app/api/v1/user"
+export const API_END_POINT = "http://localhost:8000/api/v1/user"
 
 
 export const options = {
@@ -7,6 +6,13 @@ export const options = {
     headers: {
         accept: 'application/json',
         Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJiNzk3MWVlNWQ1NjNhMmQ4NDAxZDc5MWMyODU4NjE0ZiIsInN1YiI6IjY2NTg5NzdkZDhmODA3Y2VmYTUwNjJiMSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.NX1WLHq6e-w3d9AOspZePpyD7EZarjcp_Eh0J1kMLR0'
+    }
+};
+export const option = {
+    method: 'GET',
+    headers: {
+        accept: 'application/json',
+        Authorization: 'Bearer  eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJiNzk3MWVlNWQ1NjNhMmQ4NDAxZDc5MWMyODU4NjE0ZiIsIm5iZiI6MTcyMDk1MTcwOS42ODM5ODcsInN1YiI6IjY2NTg5NzdkZDhmODA3Y2VmYTUwNjJiMSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.0ZoXRPi0OI5sBRvxrexJamUBKelkMC6QDK6tXsugWiE'
     }
 };
 

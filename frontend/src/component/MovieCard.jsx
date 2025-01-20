@@ -5,6 +5,7 @@ import { getMovieName, getid, } from '../redux/moviesSlice';
 
 const MovieCard = ({ posterPath, id, movie }) => {
   const dispatch = useDispatch()
+  
   console.log('moviecard', id)
 
 

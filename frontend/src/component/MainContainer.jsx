@@ -13,11 +13,11 @@ const MainContainer = () => {
 
   if (!movien) return;  //early return in react
 
-  const { overview, title} = movien;
+  const { overview, title } = movien;
 
   return (
     <>
-      <div className="">
+      <div className="top-10 ">
         <Videotitle title={title} overview={overview} />
         <VideoBackground movieId={id} />
       </div>

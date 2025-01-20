@@ -2,7 +2,7 @@ import express from 'express';
 import dontenv from 'dotenv';
 import databaseConnection from './utils/database.js';
 import cookieParser from 'cookie-parser';
-
+import Stripe from 'stripe';
 import cors from 'cors'
 // internalBinding('errors').triggerUncaughtException() than add file extension eg. .js, .tsx
 
@@ -21,9 +21,9 @@ databaseConnection();
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json());
 app.use(cookieParser())
- 
+
 const corsOptions = {
-    origin: ['http://localhost:3000', 'https://your-vercel-app.vercel.app'],
+    origin: 'http://localhost:3000',
     //for save the data on browser
     credentials: true
 };
@@ -38,6 +38,27 @@ app.get('/', (req, res) => {
     res.send("Hii, how are you, i'm coming form backend, now live");
 })
 
+//payment integration
+const stripe = new Stripe('sk_test_51NibPfSC7o701ELz7cw1bXdelbHUbLei9fBC6VA3MXmY66361wVNTbEV9oC85p9rROspsW2FGDG8rxWCIl6P6rd600cH6UBEqI');
+
+
+
+app.post('/create-checkout-session', async (req, res) => {
+    const session = await stripe.checkout.sessions.create({
+      line_items: [
+        {
+          // Provide the exact Price ID (for example, pr_1234) of the product you want to sell
+          price: 10,
+          quantity: 1,
+        },
+      ],
+      mode: 'payment',
+      success_url: `http://localhost:3000/browse`,
+      cancel_url: `http://localhost:3000/`,
+    });
+  
+    res.redirect(303, session.url);
+  });
 
 app.listen(process.env.PORT, () => {
     console.log(`server running on port ${process.env.PORT}`);

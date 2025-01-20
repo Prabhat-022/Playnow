@@ -1,14 +1,15 @@
 import React, { useState } from 'react'
 import Header from '../component/Header'
 import axios from 'axios'
-// import { API_END_POINT } from '../utils/constant';
+import { API_END_POINT } from '../utils/constant';
 import { toast } from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { setUser } from '../redux/userSlice.js';
 import Footer from '../component/footer/Footer.jsx';
 import Faq from '../component/Frequently_ask_question/Faq.jsx';
-const API_END_POINT = process.env.REACT_APP_API_ENDPOINT || 'http://localhost:8000';
+import { getLogin } from '../redux/moviesSlice.js';
+// const API_END_POINT = process.env.REACT_APP_API_ENDPOINT || 'http://localhost:8000/api/v1/user';
 
 const Login = () => {
   const [islogin, setIslogin] = useState(false);
@@ -42,28 +43,27 @@ const Login = () => {
       try {
         setIsloading(true)
 
-        const res = await axios.post(`${API_END_POINT}/api/v1/user/login`, user, {
+        const res = await axios.post(`${API_END_POINT}/login`, user, {
           headers: {
             'Content-Type': 'application/json'
           },
           withCredentials: true
         });
 
-        console.log('config.data', res.config.data)
+        // console.log('config.data', res.config.data)
 
         if (res.data.success) {
           toast.success(res.data.message)
           setIsloading(false);
-
+          dispatch(getLogin(true));
         }
 
-        dispatch(setUser(res.config.data))
         navigate("/browse");
 
       } catch (error) {
 
         setIsloading(false)
-        // toast.error(error.response.data.message)
+        toast.error(error.response.data.message)
         console.log("user not login:", error)
       }
 
@@ -73,7 +73,7 @@ const Login = () => {
       const user = { fullName, email, password }
       try {
         setIsloading(true)
-        const res = await axios.post(`${API_END_POINT}/api/v1/user/register`, user, {
+        const res = await axios.post(`${API_END_POINT}/register`, user, {
           headers: {
             'Content-Type': 'application/json'
           },
@@ -81,16 +81,17 @@ const Login = () => {
         });
         console.log('register res', res)
 
+
         if (res.data.success) {
           toast.success(res.data.message)
+          dispatch(setUser(user))
+
           setIsloading(false)
 
         }
-        // dispatch(setUser(res.config.data))
-
-
 
       } catch (error) {
+        
         setIsloading(false)
         toast.error(error.response.data.message)
         console.log("user not register:", error)
@@ -131,14 +132,16 @@ const Login = () => {
               <label className='text-white  m-2'>Password </label>
               <input type="password" className='outline-none p-3 rounded-sm bg-gray-800 text-white mb-4 ' value={password} onChange={(e) => setPassword(e.target.value)} />
 
-              <p className='text-white cursor-pointer'>{islogin ? "New to Netflix" : "Already have an account"} <span className='text-blue-500 cursor-pointer' onClick={loginHandler}>{islogin ? "Register" : "login"}</span></p>
+              <p className='text-white cursor-pointer my-4'>{islogin ? "New to Netflix" : "Already have an account"} <span className='text-blue-500 cursor-pointer' onClick={loginHandler}>{islogin ? "Register" : "login"}</span></p>
 
               <button className='bg-red-800 text-white px-4 py-2 w-full cursor-pointer' onClick={loginHandler}>{isloading ? "loading.." : `${islogin ? "Login" : "Register"}`} </button>
+
             </div>
 
           </form>
         </div>
-        <Faq />
+          <Faq />
+
         <Footer />
 
       </div>

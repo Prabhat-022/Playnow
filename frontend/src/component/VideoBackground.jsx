@@ -9,14 +9,16 @@ const VideoBackground = ({ movieId }) => {
     useMovieByid(movieId)
 
     return (
-        <div>
-            <div className="w-screen">
-                {
-                    tailorMovie ? <iframe className='w-screen aspect-video h-[100vh]'
-                        src={`https://www.youtube.com/embed/${tailorMovie.key}?si=at7_N94j7Sm0ZSlC&autoplay=1&mute=1`} title="netflix" frameborder="0" allowfullscreen></iframe> : " "
-                }
+        <>
+            <div className="">
+                <div className="w-screen ">
+                    {
+                        tailorMovie ? <iframe className='w-screen aspect-video h-[100vh] '
+                            src={`https://www.youtube.com/embed/${tailorMovie.key}?si=at7_N94j7Sm0ZSlC&autoplay=1&mute=1`} title="netflix" frameborder="0" allowfullscreen></iframe> : " "
+                    }
+                </div>
             </div>
-        </div>
+        </>
     )
 }
 

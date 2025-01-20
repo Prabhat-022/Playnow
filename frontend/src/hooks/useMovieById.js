@@ -2,7 +2,7 @@
 import axios from 'axios'
 import { useDispatch } from 'react-redux';
 import { getTailorMovies } from '../redux/moviesSlice';
-import { options } from '../utils/constant';
+import { option } from '../utils/constant';
 import { useEffect } from 'react';
 
 
@@ -14,7 +14,7 @@ export const useMovieByid = async (movieId) => {
     useEffect(() => {
         const getMovieById = async () => {
             try {
-                const res = await axios.get(`https://api.themoviedb.org/3/movie/${movieId}/videos`, options);
+                const res = await axios.get(`https://api.themoviedb.org/3/movie/${movieId}/videos`, option);
 
                 // console.log(res.data.results);
 

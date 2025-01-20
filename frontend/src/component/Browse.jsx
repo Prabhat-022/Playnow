@@ -10,23 +10,25 @@ import SearchMovie from './SearchMovie'
 import Home from './Home'
 
 const Browse = () => {
+    //my custome hooks
+    useNowPlayingMovie();
+    usePopularMovie();
+    useTopRatedMovie();
+    useUpcomingMovie();
+
   //Protected routes
   const user = useSelector((store) => store.app.user)
   const toggle = useSelector((store) => store.movie.toggle)
   const navigate = useNavigate();
 
-  //my custome hooks
-  useNowPlayingMovie();
-  usePopularMovie();
-  useTopRatedMovie();
-  useUpcomingMovie();
+
 
   useEffect(() => {
 
     if (!user) {
       navigate("/")
     }
-  }, [])
+  })
 
   return (
     <>

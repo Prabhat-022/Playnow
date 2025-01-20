@@ -1,0 +1,1 @@
+1) Add payment gate intigration in the website
