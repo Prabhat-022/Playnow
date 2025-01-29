@@ -43,7 +43,7 @@ const Login = () => {
       try {
         setIsloading(true)
 
-        const res = await axios.post(`${API_END_POINT}/login`, user, {
+        const res = await axios.post(`api/v1/user/login`, user, {
           headers: {
             'Content-Type': 'application/json'
           },
@@ -74,7 +74,9 @@ const Login = () => {
       const user = { fullName, email, password }
       try {
         setIsloading(true)
-        const res = await axios.post(`${API_END_POINT}/register`, user, {
+        // const res = await axios.post(`${API_END_POINT}/register`, user, {
+        const res = await axios.post(`api/v1/user/register`, user, {
+
           headers: {
             'Content-Type': 'application/json'
           },
