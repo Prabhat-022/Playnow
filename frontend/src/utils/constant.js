@@ -2,7 +2,6 @@
 export const API_END_POINT = "https://playnow-backend.vercel.app/api/v1/user"
 
 
-
 export const options = {
     method: 'GET',
     headers: {
@@ -22,7 +21,7 @@ export const Now_Playing_Moving = 'https://api.themoviedb.org/3/movie/now_playin
 export const popular_Moving = 'https://api.themoviedb.org/3/movie/popular';
 export const top_rated_Moving = 'https://api.themoviedb.org/3/movie/top_rated';
 export const upcoming_Moving = 'https://api.themoviedb.org/3/movie/upcoming';
-export const tailor_Url = 'https://api.themoviedb.org/3/movie/${movieId}/video'
+export const tailor_Url = 'https://api.themoviedb.org/3/movie/${movieId}/video';
 export const Poster_Url = 'https://image.tmdb.org/t/p/w500';
 
 export const Search_Movie_url = 'https://api.themoviedb.org/3/search/movie?query=';

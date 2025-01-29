@@ -23,10 +23,7 @@ app.use(express.json());
 app.use(cookieParser())
 
 const corsOptions = {
-  //for save the data on browser
-  // origin: 'http://localhost:3000',
-  origin: 'https://pkplaynow.vercel.app/',
-  //for save the data on browser
+  origin:[`https://pkplaynow.vercel.app/`, `http://localhost:3000`, '*'],
   credentials: true
 };
 app.use(cors(corsOptions));
