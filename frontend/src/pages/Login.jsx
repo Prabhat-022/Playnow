@@ -22,18 +22,18 @@ const Login = () => {
   const dispatch = useDispatch();
 
   const loginHandler = (e) => {
-    // if (fullname === '' && email === '' && password === '') {
-    //   alert("please enter the details");
-    // }
-    // else {
-    //   setIslogin(!islogin)
-    // }
+    if (fullName === '' && email === '' && password === '') {
+      alert("please enter the details");
+    }
+    else {
+      setIslogin(!islogin)
+    }
 
     setIslogin(!islogin)
 
   }
 
-  const getinputData = async (e) => {
+  const handleLoginSignup = async (e) => {
     e.preventDefault();
     console.log("islogin", !islogin)
 
@@ -54,11 +54,12 @@ const Login = () => {
 
         if (res.data.success) {
           toast.success(res.data.message)
-          setIsloading(false);
           dispatch(getLogin(true));
+          navigate("/browse");
+          setIsloading(false);
+
         }
 
-        navigate("/browse");
 
       } catch (error) {
 
@@ -88,10 +89,11 @@ const Login = () => {
 
           setIsloading(false)
 
+        } else {
+          setIsloading(false)
         }
-
       } catch (error) {
-        
+
         setIsloading(false)
         toast.error(error.response.data.message)
         console.log("user not register:", error)
@@ -113,7 +115,7 @@ const Login = () => {
             <img className='w-[100vw] h-[100vh]' src="https://wallpapers.com/images/high/netflix-backgroung-gs7hjuwvv2g0e9fj.webp" alt="" />
           </div>
 
-          <form onSubmit={getinputData} className="absolute top-10 left-0 right-0 flex item-center justify-center my-36 w-3/12 mx-auto flex-col bg-black opecity-70">
+          <form onSubmit={handleLoginSignup} className="absolute top-10 left-0 right-0 flex item-center justify-center my-36 w-3/12 mx-auto flex-col bg-black opecity-70">
 
             <h1 className='text-3xl text-white mb-4 mt-5 font-bold'>{islogin ? "Login" : "Register"}</h1>
 
@@ -140,7 +142,7 @@ const Login = () => {
 
           </form>
         </div>
-          <Faq />
+        <Faq />
 
         <Footer />
 
