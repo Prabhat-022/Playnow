@@ -1,1 +1,9 @@
+fundamental information
+
+Deployment method
+
+->frontend and backend both are deployed separately on vercel
+->playnow frontend
+->playnow backend
+
 1) Add payment gate intigration in the website
