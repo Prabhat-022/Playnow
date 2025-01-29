@@ -9,7 +9,6 @@ import { setUser } from '../redux/userSlice.js';
 import Footer from '../component/footer/Footer.jsx';
 import Faq from '../component/Frequently_ask_question/Faq.jsx';
 import { getLogin } from '../redux/moviesSlice.js';
-// const API_END_POINT = process.env.REACT_APP_API_ENDPOINT || 'http://localhost:8000/api/v1/user';
 
 const Login = () => {
   const [islogin, setIslogin] = useState(false);
@@ -43,16 +42,13 @@ const Login = () => {
       try {
         setIsloading(true)
 
-        // const res = await axios.post(`api/v1/user/login`, user, {
         const res = await axios.post(`${API_END_POINT}/login`, user, {
-
           headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': '*'
           },
           withCredentials: true
         });
-
-        // console.log('config.data', res.config.data)
 
         if (res.data.success) {
           toast.success(res.data.message)
@@ -78,10 +74,9 @@ const Login = () => {
         
         setIsloading(true)
         const res = await axios.post(`${API_END_POINT}/register`, user, {
-
-        // const res = await axios.post(`api/v1/user/register`, user, {
           headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': '*'
           },
           withCredentials: true
         });

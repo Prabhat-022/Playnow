@@ -23,9 +23,16 @@ app.use(express.json());
 app.use(cookieParser())
 
 const corsOptions = {
-  origin:[`https://pkplaynow.vercel.app/`, `http://localhost:3000`, '*'],
+  origin: (origin, callback) => {
+    if (!origin || whitelist.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
   credentials: true
 };
+const whitelist = ['http://localhost:3000', 'https://pkplaynow.vercel.app'];
 app.use(cors(corsOptions));
 
 
@@ -62,4 +69,3 @@ app.post('/create-checkout-session', async (req, res) => {
 app.listen(process.env.PORT, () => {
   console.log(`server running on port ${process.env.PORT}`);
 })
-
