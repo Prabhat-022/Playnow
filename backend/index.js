@@ -11,7 +11,7 @@ const app = express();
 import userRoute from './routes/userRoutes.js'
 
 dontenv.config({
-    path: '.env'
+  path: '.env'
 })
 
 
@@ -23,9 +23,11 @@ app.use(express.json());
 app.use(cookieParser())
 
 const corsOptions = {
-    origin: 'http://localhost:3000',
-    //for save the data on browser
-    credentials: true
+  //for save the data on browser
+  // origin: 'http://localhost:3000',
+  origin: 'https://pkplaynow.vercel.app/',
+  //for save the data on browser
+  credentials: true
 };
 app.use(cors(corsOptions));
 
@@ -35,7 +37,7 @@ app.use("/api/v1/user", userRoute);
 // http://localhost:8000/api/v1/user/register
 
 app.get('/', (req, res) => {
-    res.send("Hii, how are you, i'm coming form backend, now live");
+  res.send("Hii, how are you, i'm coming form backend, now live");
 })
 
 //payment integration
@@ -44,23 +46,23 @@ const stripe = new Stripe('sk_test_51NibPfSC7o701ELz7cw1bXdelbHUbLei9fBC6VA3MXmY
 
 
 app.post('/create-checkout-session', async (req, res) => {
-    const session = await stripe.checkout.sessions.create({
-      line_items: [
-        {
-          // Provide the exact Price ID (for example, pr_1234) of the product you want to sell
-          price: 10,
-          quantity: 1,
-        },
-      ],
-      mode: 'payment',
-      success_url: `http://localhost:3000/browse`,
-      cancel_url: `http://localhost:3000/`,
-    });
-  
-    res.redirect(303, session.url);
+  const session = await stripe.checkout.sessions.create({
+    line_items: [
+      {
+        // Provide the exact Price ID (for example, pr_1234) of the product you want to sell
+        price: 10,
+        quantity: 1,
+      },
+    ],
+    mode: 'payment',
+    success_url: `http://localhost:3000/browse`,
+    cancel_url: `http://localhost:3000/`,
   });
 
+  res.redirect(303, session.url);
+});
+
 app.listen(process.env.PORT, () => {
-    console.log(`server running on port ${process.env.PORT}`);
+  console.log(`server running on port ${process.env.PORT}`);
 })
 
