@@ -5,7 +5,6 @@ import { generateToken } from "../lib/generateToken.js";
 
 export const Register = async (req, res) => {
     const { fullName, email, password } = req.body;
-    console.log('singup', req.body);
     try {
         //validation for fullName, email, password
         if (!fullName || !email || !password) {
@@ -40,7 +39,6 @@ export const Register = async (req, res) => {
             generateToken(newUser._id, res);
             await newUser.save();
 
-            console.log('new user', newUser)
             res.status(201).json({
                 _id: newUser._id,
                 fullName: newUser.fullName,
@@ -64,10 +62,8 @@ export const Register = async (req, res) => {
 //Login
 export const Login = async (req, res) => {
     const { email, password } = req.body;
-    console.log('login payload', req.body)
     try {
         const user = await User.findOne({ email });
-        console.log('user', user)
 
         if (!user) {
             return res.status(400).json({ message: "Invalid credentials" });

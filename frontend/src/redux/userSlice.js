@@ -11,12 +11,9 @@ const initialState = {
 }
 //register users
 export const registerUser = createAsyncThunk("user/register", async (payload) => {
-    console.log('payload', payload)
     try {
         const response = await axiosInstance.post("/register", payload);
-        console.log('register response', response.data)
         localStorage.setItem("userInfo", JSON.stringify(response.data));
-
         if (response.data.success) {
             toast.success(response.data.message)
         }
@@ -24,13 +21,13 @@ export const registerUser = createAsyncThunk("user/register", async (payload) =>
 
         return response.data;
     } catch (error) {
+        toast.error(error.response.data.message)
         return isRejectedWithValue(error.response.data);
     }
 });
 
 //login users
 export const loginUser = createAsyncThunk("user/login", async (payload) => {
-    console.log('payload', payload)
     try {
         const response = await axiosInstance.post("/login", payload);
         localStorage.setItem("userInfo", JSON.stringify(response.data));
@@ -38,9 +35,9 @@ export const loginUser = createAsyncThunk("user/login", async (payload) => {
             toast.success(response.data.message)
         }
 
-        console.log('login response', response.data)
         return response.data;
     } catch (error) {
+        toast.error(error.response.data.message)
         return isRejectedWithValue(error.response.data);
     }
 });

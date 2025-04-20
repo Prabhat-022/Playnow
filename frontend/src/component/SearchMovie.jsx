@@ -13,7 +13,6 @@ const SearchMovie = () => {
     
     // const id = useSelector(store => store.movie.id)
     const ids = useSelector((store) => store.movie.id)
-    console.log('serchid', ids)
 
     const searchHandler = async (e) => {
 
@@ -22,8 +21,6 @@ const SearchMovie = () => {
             const res = await axios.get(`${Search_Movie_url}${inputs}`, options)
 
             setSearchData(res.data.results);
-            console.log("search title", res.data.results.title)
-            console.log("search id", res.data.results.id)
 
         } catch (error) {
             console.log(error)

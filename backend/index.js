@@ -13,10 +13,20 @@ dotenv.config();
 
 const app = express();
 
-app.use(cors({
-  origin: "http://localhost:3000",
-  credentials: true
-}));
+//cors configuration
+const whiteList = ["http://localhost:3000", "https://pkplaynow.vercel.app"];
+app.use(
+  cors({
+    origin: (origin, callback) => {
+      if (!origin || whiteList.indexOf(origin) !== -1) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
+    credentials: true,
+  })
+);
 
 
 //middleware
