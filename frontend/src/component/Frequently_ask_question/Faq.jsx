@@ -15,7 +15,7 @@ const Faq = () => {
     };
 
     return (
-        <div className="bg-black text-gray-400 flex items-center justify-center flex-col h-[600px]">
+        <div className="bg-gray-800 text-gray-400 flex items-center justify-center flex-col h-[600px]">
             <div className="md:w-1/2 w-full p-4">
                 <h1 className='text-3xl font-bold mb-2'>Frequent Asked Questions</h1>
                 <div className="flex flex-col">

@@ -8,7 +8,7 @@ const Footer = () => {
                     <p className="text-start ">Questions? Calll <Link >000-800-919-1694</Link ></p>
 
                 </div>
-                <div className=" flex items-center justify-between  ">
+                <div className=" flex items-center justify-between gap-4 w-[100%] mx-10 px-10">
                     <div className="flex flex-col text-start px-10 ">
                         <Link href="#" >FAQ</Link >
                         <Link href="#" >Jobs</Link >
@@ -35,7 +35,7 @@ const Footer = () => {
                         <Link href="#" >Corporete Information</Link >
                     </div>
                 </div>
-                <div className="border w-20 text-black">
+                <div className="border w-20 text-black my-5">
                     <select className="rounded-none">
                         <option value="Hindi">Hindi</option>
                         <option value="English">English</option>

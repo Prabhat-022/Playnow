@@ -1,153 +1,69 @@
 import React, { useState } from 'react'
-import Header from '../component/Header'
-import axios from 'axios'
-import { API_END_POINT } from '../utils/constant';
-import { toast } from 'react-hot-toast';
-import { useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import { setUser } from '../redux/userSlice.js';
 import Footer from '../component/footer/Footer.jsx';
 import Faq from '../component/Frequently_ask_question/Faq.jsx';
-import { getLogin } from '../redux/moviesSlice.js';
+import { Link } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { loginUser } from '../redux/userSlice.js';
 
 const Login = () => {
-  const [islogin, setIslogin] = useState(false);
-  const [fullName, setFullname] = useState("");
-  const [email, setEmail] = useState("")
-  const [password, setPassword] = useState("");
-  const [isloading, setIsloading] = useState(false)
 
-  const navigate = useNavigate()
+  const [user, setUser] = useState({
+    email: "",
+    password: ""
+
+  })
+
   const dispatch = useDispatch();
-
-  const loginHandler = (e) => {
-    if (fullName === '' && email === '' && password === '') {
-      alert("please enter the details");
-    }
-    else {
-      setIslogin(!islogin)
-    }
-
-    setIslogin(!islogin)
-
-  }
 
   const handleLoginSignup = async (e) => {
     e.preventDefault();
-    console.log("islogin", !islogin)
+    try {
+      dispatch(loginUser(user))
 
-    if (!islogin) {
-      //login
-      const user = { email, password }
-      try {
-        setIsloading(true)
-
-        const res = await axios.post(`${API_END_POINT}/login`, user, {
-          headers: {
-            'Content-Type': 'application/json',
-            'Access-Control-Allow-Origin': '*'
-          },
-          withCredentials: true
-        });
-
-        if (res.data.success) {
-          toast.success(res.data.message)
-          dispatch(getLogin(true));
-          navigate("/browse");
-          setIsloading(false);
-
-        }
-
-
-      } catch (error) {
-
-        setIsloading(false)
-        toast.error(error.response.data.message)
-        console.log("user not login:", error)
-      }
-
+    } catch (error) {
+      console.log(error)
     }
-    else {
-      //register
-      const user = { fullName, email, password }
-      try {
-        
-        setIsloading(true)
-        const res = await axios.post(`${API_END_POINT}/register`, user, {
-          headers: {
-            'Content-Type': 'application/json',
-            'Access-Control-Allow-Origin': '*'
-          },
-          withCredentials: true
-        });
-        console.log('register res', res)
-
-
-        if (res.data.success) {
-          toast.success(res.data.message)
-          dispatch(setUser(user))
-
-          setIsloading(false)
-
-        } else {
-          setIsloading(false)
-        }
-      } catch (error) {
-
-        setIsloading(false)
-        toast.error(error.response.data.message)
-        console.log("user not register:", error)
-      }
-    }
-    // console.log(fullname, email, password)
-    // setFullname("");
-    // setEmail("");
-    // setPassword("")
   }
-
   return (
     <>
-      <div className="w-screen">
-        <Header />
+
+      <div className="w-screen ">
+
         <div className="">
           <div className="">
-
-            <img className='w-[100vw] h-[100vh]' src="https://wallpapers.com/images/high/netflix-backgroung-gs7hjuwvv2g0e9fj.webp" alt="" />
+            <img className='w-[100vw] h-[100vh] opacity-80' src="https://wallpapers.com/images/high/netflix-backgroung-gs7hjuwvv2g0e9fj.webp" alt="" />
+            <img className='w-48 h-10 absolute top-2 left-5' src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Netflix_2015_logo.svg/1198px-Netflix_2015_logo.svg.png" alt="" />
           </div>
 
           <form onSubmit={handleLoginSignup} className="absolute top-10 left-0 right-0 flex item-center justify-center my-36 w-3/12 mx-auto flex-col bg-black opecity-70">
 
-            <h1 className='text-3xl text-white mb-4 mt-5 font-bold'>{islogin ? "Login" : "Register"}</h1>
+            <h1 className='text-3xl text-white mb-4 mt-5 font-bold'>Login </h1>
 
             <div className="flex items-center justify-center flex-col text=white">
 
 
-              {!islogin && <>
-                <label className='text-white m-2'>Full Name</label>
-                <input type="text" className='outline-none p-3 rounded-sm bg-gray-800  text-white' value={fullName} onChange={(e) => setFullname(e.target.value)} />
-              </>
-              }
-
               <label className='text-white  m-2'>Email </label>
-              <input type="email" className='outline-none p-3 rounded-sm bg-gray-800 text-white' value={email} onChange={(e) => setEmail(e.target.value)} />
+              <input type="email" className='outline-none p-3 rounded-sm bg-gray-800 text-white' value={user.email} onChange={(e) => setUser({ ...user, email: e.target.value })} />
 
               <label className='text-white  m-2'>Password </label>
-              <input type="password" className='outline-none p-3 rounded-sm bg-gray-800 text-white mb-4 ' value={password} onChange={(e) => setPassword(e.target.value)} />
+              <input type="password" className='outline-none p-3 rounded-sm bg-gray-800 text-white mb-4 ' value={user.password} onChange={(e) => setUser({ ...user, password: e.target.value })} />
 
-              <p className='text-white cursor-pointer my-4'>{islogin ? "New to Netflix" : "Already have an account"} <span className='text-blue-500 cursor-pointer' onClick={loginHandler}>{islogin ? "Register" : "login"}</span></p>
+              <p className='text-white cursor-pointer my-4'>New to Netflix <span className='text-blue-500 cursor-pointer'>
+                <Link to="/register">
+                  Register
+                </Link>
+              </span></p>
 
-              <button className='bg-red-800 text-white px-4 py-2 w-full cursor-pointer' onClick={loginHandler}>{isloading ? "loading.." : `${islogin ? "Login" : "Register"}`} </button>
+              <button className='bg-red-800 text-white px-4 py-2 w-full cursor-pointer' type="submit">Login </button>
 
             </div>
 
           </form>
         </div>
-        <Faq />
-
-        <Footer />
 
       </div>
-
+        <Faq />
+        <Footer />
 
     </>
   )

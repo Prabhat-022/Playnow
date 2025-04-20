@@ -1,41 +1,23 @@
 import React from 'react';
 import { IoIosArrowDropdown } from 'react-icons/io'
 import { useDispatch, useSelector } from 'react-redux';
-// import { API_END_POINT } from '../utils/constant';
-import axios from 'axios';
-import { setUser } from '../redux/userSlice';
-import { useNavigate } from 'react-router-dom';
-import toast from 'react-hot-toast';
 import { gettoggle } from '../redux/moviesSlice';
-
-const API_END_POINT = process.env.REACT_APP_API_ENDPOINT || 'http://localhost:8000/api/v1/user';
+import { logout } from '../redux/userSlice';
+import { useNavigate } from 'react-router-dom';
 
 const Header = () => {
-    const user = useSelector((store) => store.app.user)
-
-    const login = useSelector((store) => store.movie.login)
+    const { user } = useSelector((store) => store.user)
     const toggle = useSelector((store) => store.movie.toggle)
 
     const dispatch = useDispatch()
     const navigate = useNavigate()
-    // console.log('users', user.fullName)
-    // console.log(user.email)
-    // const user = null;
+
 
     const logoutHandler = async () => {
         try {
-            const res = await axios.get(`${API_END_POINT}/logout`);
-            console.log(res)
-
-            if (res.data.success) {
-                toast.success(res.data.message)
-            }
-
-            dispatch(setUser(null))
-            navigate('/')
+            dispatch(logout())
         } catch (error) {
-
-            console.log(error)
+            console.log("Error in logout controller", error.message)
         }
     }
 
@@ -46,29 +28,31 @@ const Header = () => {
 
 
 
-    
+
     return (
-        <div className=" flex w-[100%] items-center justify-between px-6 bg-gradient-to-b from-black absolute py-4">
+        <>
+            <div className=" flex w-[100%] items-center justify-between px-10 py-5 bg-black ">
 
-            <img className='w-48 h-10 mt-2 ' src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Netflix_2015_logo.svg/1198px-Netflix_2015_logo.svg.png" alt="" />
+                <img className='w-48 h-10 mt-2 ' src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Netflix_2015_logo.svg/1198px-Netflix_2015_logo.svg.png" alt="" />
+                {
+                    user && (
+                        <div className="flex items-center justify-center cursor-pointer" onClick={() => navigate('/profile')}>
+                            <IoIosArrowDropdown size="24px" color='white' />
 
-            {
-                user && login && (
-                    <div className="flex items-center ">
-                        <IoIosArrowDropdown size="24px" color='white' />
-
-                        <h1 className='text-lg font-medium text-white'>{user.fullName}</h1>
-                        <div className="ml-4 mt-2">
+                            <h1 className='text-lg font-medium text-white'>{user.fullName}</h1>
+                            <div className="ml-4 mt-2">
 
 
-                            <button className='bg-red-800 text-white px-4 py-2 ' onClick={togglehandler}>{toggle ? "Home" : "Search"}</button>
-                            <button className='bg-red-800 text-white px-4 py-2 ml-2' onClick={logoutHandler}>Logout</button>
+                                <button className='bg-red-800 text-white px-4 py-2 ' onClick={togglehandler}>{toggle ? "Home" : "Search"}</button>
+                                <button className='bg-red-800 text-white px-4 py-2 ml-2' onClick={logoutHandler}>Logout</button>
 
+                            </div>
                         </div>
-                    </div>
-                )
-            }
-        </div>
+                    )
+                }
+            </div>
+        </>
+
     )
 }
 

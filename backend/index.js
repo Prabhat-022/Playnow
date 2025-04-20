@@ -1,39 +1,30 @@
 import express from 'express';
-import dontenv from 'dotenv';
-import databaseConnection from './utils/database.js';
+import dotenv from 'dotenv';
+import  databaseConnection  from './utils/database.js';
+
 import cookieParser from 'cookie-parser';
 import Stripe from 'stripe';
 import cors from 'cors'
+import userRoute from './routes/userRoutes.js'
+
 // internalBinding('errors').triggerUncaughtException() than add file extension eg. .js, .tsx
+dotenv.config();
+
 
 const app = express();
 
-import userRoute from './routes/userRoutes.js'
+app.use(cors({
+  origin: "http://localhost:3000",
+  credentials: true
+}));
 
-dontenv.config({
-  path: '.env'
-})
-
-
-databaseConnection();
 
 //middleware
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json());
 app.use(cookieParser())
 
-const corsOptions = {
-  origin: (origin, callback) => {
-    if (!origin || whitelist.indexOf(origin) !== -1) {
-      callback(null, true);
-    } else {
-      callback(new Error('Not allowed by CORS'));
-    }
-  },
-  credentials: true
-};
-const whitelist = ['http://localhost:3000', 'https://pkplaynow.vercel.app'];
-app.use(cors(corsOptions));
+
 
 
 //creating the api
@@ -68,4 +59,5 @@ app.post('/create-checkout-session', async (req, res) => {
 
 app.listen(process.env.PORT, () => {
   console.log(`server running on port ${process.env.PORT}`);
+  databaseConnection();
 })

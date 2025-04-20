@@ -5,7 +5,7 @@ import searchSlice from './searchSlice';
 
 export const store = configureStore({
     reducer: {
-        app: userReducer,
+        user: userReducer,
         movie:moviesSlice,
         search:searchSlice
     },

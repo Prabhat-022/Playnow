@@ -17,7 +17,7 @@ const Browse = () => {
     useUpcomingMovie();
 
   //Protected routes
-  const user = useSelector((store) => store.app.user)
+  const {user} = useSelector((store) => store.user)
   const toggle = useSelector((store) => store.movie.toggle)
   const navigate = useNavigate();
 

@@ -1,18 +1,19 @@
 import { User } from "../models/userModel.js";
-import bcryptjs from "bcryptjs";
-import jwt from "jsonwebtoken";
+import bcrypt from "bcryptjs";
+import { generateToken } from "../lib/generateToken.js";
 
 
 export const Register = async (req, res) => {
+    const { fullName, email, password } = req.body;
+    console.log('singup', req.body);
     try {
-        const { fullName, email, password } = req.body;
-
         //validation for fullName, email, password
         if (!fullName || !email || !password) {
-            return res.status(401).json({
-                message: "Invalid data",
-                success: false
-            })
+            return res.status(400).json({ message: "All fields are required" });
+        }
+
+        if (password.length < 6) {
+            return res.status(400).json({ message: "Password must be at least 6 characters" });
         }
 
         // check email present or not in out database
@@ -25,80 +26,81 @@ export const Register = async (req, res) => {
         }
 
         // creating hash password 
-        const hashPassword = await bcryptjs.hash(password, 16)
+        const salt = await bcrypt.genSalt(10);
+        const hashedPassword = await bcrypt.hash(password, salt);
 
-        // creating user in database
-        await User.create({
+        const newUser = new User({
             fullName,
             email,
-            password: hashPassword
+            password: hashedPassword,
         });
 
-        //after create the user show message
-        return res.status(201).json({
-            message: "Account created successfully",
-            success: true
+        if (newUser) {
+            // generate jwt token here
+            generateToken(newUser._id, res);
+            await newUser.save();
 
-        })
+            console.log('new user', newUser)
+            res.status(201).json({
+                _id: newUser._id,
+                fullName: newUser.fullName,
+                email: newUser.email,
+                profilePic: newUser.profilePic,
+                message: "User registered successfully",
+                success: true
+            });
+        } else {
+            res.status(400).json({ message: "Invalid user data" });
+        }
+
 
 
     } catch (error) {
-        console.log(`Account not created: ${error}`)
+        console.log("Error in signup controller", error.message);
+        res.status(500).json({ message: "Internal Server Error" });
     }
 }
 
+//Login
 export const Login = async (req, res) => {
+    const { email, password } = req.body;
+    console.log('login payload', req.body)
     try {
-        const { email, password } = req.body;
-        if (!email || !password) {
-            return res.status(401).json({
-                message: "Invalid data",
-                success: false
-            })
-        };
-
         const user = await User.findOne({ email });
+        console.log('user', user)
 
         if (!user) {
-            return res.status(401).json({
-                message: "Invalid email or password",
-                success: false
-            })
+            return res.status(400).json({ message: "Invalid credentials" });
         }
-        //match hashpassword or local password
-        const isMatch = bcryptjs.compare(password, user.password)
 
-        if (!isMatch) {
-            return res.status(401).json({
-                message: "Invalid email or password",
-                success: false
-            })
-        }
+        const isPasswordCorrect = await bcrypt.compare(password, user.password);
         
-        //even match the password than generate the token
-        const tokenData = {
-            id: user._id
+        if (!isPasswordCorrect) {
+            return res.status(400).json({ message: "Invalid credentials" });
         }
-        const token =  jwt.sign(tokenData, "sdjfleojfslwoeidjfjsl", { expiresIn: "1h" })
 
-        // store the data in browser cookies
-        return res.status(200).cookie("token", token, { httpOnly: true }).json({
-            message: `Welcome back ${user.fullName}`,
+        generateToken(user._id, res);
+
+        res.status(200).json({
+            _id: user._id,
+            fullName: user.fullName,
+            email: user.email,
+            profilePic: user.profilePic,
+            message: "User logged in successfully",
             success: true
         });
-
     } catch (error) {
-
-        console.log(`Invalid Login: ${error}`)
-
+        console.log("Error in login controller", error.message);
+        res.status(500).json({ message: "Internal Server Error" });
     }
-}
-//logout authentication
-export const Logout = async (req, res) => {
+};
 
-    return res.status(200).cookie("token", "", { expiresIn: new Date(Date.now()), httpOnly: true }).json({
-        message: "User Logged out successfully",
-        success: true
-    });
-}
-
+export const Logout = (req, res) => {
+    try {
+        res.cookie("token", "", { maxAge: 0 });
+        res.status(200).json({ message: "Logged out successfully", success: true });
+    } catch (error) {
+        console.log("Error in logout controller", error.message);
+        res.status(500).json({ message: "Internal Server Error" });
+    }
+};

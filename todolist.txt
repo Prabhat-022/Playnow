@@ -6,4 +6,6 @@ Deployment method
 ->playnow frontend
 ->playnow backend
 
+issue: this project is deployed but not working properly please fix it 
+
 1) Add payment gate intigration in the website
