@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk, isRejectedWithValue } from "@reduxjs/toolkit";
 import { axiosInstance } from "../lib/axios";
 import { toast } from "react-hot-toast";
+console.log(axiosInstance);
 
 const userFromStorage = localStorage.getItem("userInfo") ? JSON.parse(localStorage.getItem("userInfo")) : null;
 

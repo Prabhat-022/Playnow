@@ -35,8 +35,6 @@ app.use(express.json());
 app.use(cookieParser())
 
 
-
-
 //creating the api
 app.use("/api/v1/user", userRoute);
 // http://localhost:8000/api/v1/user/register
